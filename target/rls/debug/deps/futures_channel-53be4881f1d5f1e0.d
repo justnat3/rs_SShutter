@@ -1,0 +1,10 @@
+c:\git\rs_shutter\target\rls\debug\deps\futures_channel-53be4881f1d5f1e0.rmeta: C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\lib.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\lock.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\mpsc\mod.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\mpsc\queue.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\mpsc\sink_impl.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\oneshot.rs
+
+c:\git\rs_shutter\target\rls\debug\deps\futures_channel-53be4881f1d5f1e0.d: C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\lib.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\lock.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\mpsc\mod.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\mpsc\queue.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\mpsc\sink_impl.rs C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\oneshot.rs
+
+C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\lib.rs:
+C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\lock.rs:
+C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\mpsc\mod.rs:
+C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\mpsc\queue.rs:
+C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\mpsc\sink_impl.rs:
+C:\Users\Nathan\ Reed\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.8\src\oneshot.rs:
