@@ -6,25 +6,10 @@ use std::path::PathBuf;
 use std::{fs, process::exit};
 use std::{io, path::Path};
 use structopt::StructOpt;
-//TODO:
-// 1. implement cli
-//  [x] 1.top.whatever -> parse arguements
-//    [x] 1.1 get cwd -> for . syntax
-//    [x] 1.2 get dir -> for path
-//    [x] 1.3 make -h form
-//    [] 1.4 write tests to ensure that the pathing works properly
 
-// 2. implement IO(input/output)
-// [x] verify and iterate over path
-// [x] 2.1 search && create dupesdir
-// [x] 2.2 get both filename
-// [x] 2.whatever get file path
-// [] 2.3 implement items->caught
-
-// 3. implement Hashing
-//  [x]3.1 create hashtable or hashmap
-//  [x]3.2 hash->check->insert/discard
-//  []3.3 hash only photos
+// TODO: DAY 2
+    //HOUSE CLEANING: 1. fill dupes folder
+    //HOUSE CLEANING: 2. Nicer visuals 
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "example", about = "An example of StructOpt usage.")]
@@ -51,7 +36,7 @@ pub fn cli() -> String {
     }
 }
 
-fn visitDirs(dirstr: &String) -> io::Result<Vec<PathBuf>> {
+pub fn visitDirs(dirstr: &String) -> io::Result<Vec<PathBuf>> {
     let dir = Path::new(dirstr);
     let mut v: Vec<PathBuf> = Vec::new();
 
@@ -68,19 +53,32 @@ fn visitDirs(dirstr: &String) -> io::Result<Vec<PathBuf>> {
     Ok(v)
 }
 
+/// Takes in Vector of Pathbufs -> returns NONE.
+/// Matches on photo files and if it does not match anything in the map it preforms an insert.  
 pub fn _hash(entryVector: Vec<PathBuf>) {
     let mut photoHash: HashMap<&str, &str> = HashMap::new();
+    let mut c: i64 = 0;
     for e in &entryVector {
-        if ".jpg" == pathGetExtension(e) || ".png" == pathGetExtension(e) {
-            photoHash.insert(
-                e.to_str().unwrap(),
-                e.file_name().unwrap().to_str().unwrap(),
-            );
+        if let Ok(ext) = pathGetExtension(e) {
+            match ext {
+                "jpg" | "png" => {
+                    if !photoHash.contains_key(e.to_str().unwrap()) {
+                        photoHash.insert(
+                            e.to_str().unwrap(),
+                            e.file_name().unwrap().to_str().unwrap(),
+                        );
+                    } else { c += 1;  } 
+                }
+                _ => {}
+            }
         }
+        println!("{:?}", photoHash);
     }
-    println!("{:?}", photoHash);
 }
 
-pub fn pathGetExtension<'a>(_pathbuf: &'a PathBuf) -> &'a str {
-    _pathbuf.extension().unwrap().to_str().unwrap()
+pub fn pathGetExtension<'a>(_pathbuf: &'a PathBuf) -> Result<&'a str, &'static str> {
+    match _pathbuf.extension() {
+        Some(v) => Ok(v.to_str().unwrap()),
+        None => Err("err"),
+    }
 }
