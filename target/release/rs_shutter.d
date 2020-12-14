@@ -1,1 +1,1 @@
-C:\git\rs_shutter\target\release\rs_shutter.exe: C:\git\rs_shutter\src\main.rs
+C:\git\rs_SShutter\target\release\rs_shutter.exe: C:\git\rs_SShutter\src\main.rs

@@ -1,63 +1,86 @@
-#![allow(unused_imports)]
 #![allow(non_snake_case)]
 #![deny(unsafe_code)]
 
-use std::fs;
-use std::{env, fs::metadata};
+use std::collections::HashMap;
+use std::path::PathBuf;
+use std::{fs, process::exit};
+use std::{io, path::Path};
+use structopt::StructOpt;
 //TODO:
-// 1. implement cli::
-//  1.top.whatever -> parse arguements
-//  1.1 get cwd -> for . syntax
-//  1.2 get dir -> for path
-//  1.3 make -h form
-//  1.4 make flags and positional arguments
-//  1.5 write tests to ensure that the pathing works properly
+// 1. implement cli
+//  [x] 1.top.whatever -> parse arguements
+//    [x] 1.1 get cwd -> for . syntax
+//    [x] 1.2 get dir -> for path
+//    [x] 1.3 make -h form
+//    [] 1.4 write tests to ensure that the pathing works properly
 
 // 2. implement IO(input/output)
-// Perhaps should be a struct
-//  2.1 search && create dupesdir
-//  2.2 get both filename and path
-//  2.3 implement items->caught
+// [x] verify and iterate over path
+// [x] 2.1 search && create dupesdir
+// [x] 2.2 get both filename
+// [x] 2.whatever get file path
+// [] 2.3 implement items->caught
 
 // 3. implement Hashing
-//  3.1 create hashtable or hashmap
-//  3.2 hash->check->insert/discard
+//  [x]3.1 create hashtable or hashmap
+//  [x]3.2 hash->check->insert/discard
+//  []3.3 hash only photos
 
-/// A subcommand for controlling testing
+#[derive(Debug, StructOpt)]
+#[structopt(name = "example", about = "An example of StructOpt usage.")]
+struct CliOpts {
+    #[structopt(short, long)]
+    path: PathBuf,
+}
 
 fn main() {
-    cli();
+    let dir = cli();
+    let bufs = visitDirs(&dir);
+    _hash(bufs.unwrap());
 }
 
-pub fn _help() {
-    println!(
-        "usage:
-    DIR <String>
-        Checks dir, and walks if dir exists
-    DEBUG <BOOL>
-    "
-    );
+pub fn cli() -> String {
+    let opt = CliOpts::from_args();
+    let dir = opt.path.to_str().unwrap().to_string();
+    let path = Path::new(&dir);
+    if path.is_dir() {
+        dir
+    } else {
+        println!("Enter a dir");
+        exit(1);
+    }
 }
 
-// Owner of the CLI interface && primary functions of the application
-pub fn cli() {
-    let args: Vec<String> = env::args().collect();
+fn visitDirs(dirstr: &String) -> io::Result<Vec<PathBuf>> {
+    let dir = Path::new(dirstr);
+    let mut v: Vec<PathBuf> = Vec::new();
 
-    match args.len() {
-        1 => {
-            _help();
-        }
-        2 => {
-            if cfg!(windows) {
-                if args[1].contains("/") || args[1].contains("\\") {
-                    if fs::metadata(args[1].to_string()).is_ok() {
-                        let dir = args[1].to_string();
-                    }
-                }
-            }
-        }
-        _ => {
-            _help();
+    if !dir.join("dupes").is_dir() {
+        fs::create_dir(dir.join("dupes")).ok();
+    }
+    if dir.is_dir() {
+        for entry in fs::read_dir(dir)? {
+            let entry = entry?;
+            let path = entry.path();
+            v.push(path);
         }
     }
+    Ok(v)
+}
+
+pub fn _hash(entryVector: Vec<PathBuf>) {
+    let mut photoHash: HashMap<&str, &str> = HashMap::new();
+    for e in &entryVector {
+        if ".jpg" == pathGetExtension(e) || ".png" == pathGetExtension(e) {
+            photoHash.insert(
+                e.to_str().unwrap(),
+                e.file_name().unwrap().to_str().unwrap(),
+            );
+        }
+    }
+    println!("{:?}", photoHash);
+}
+
+pub fn pathGetExtension<'a>(_pathbuf: &'a PathBuf) -> &'a str {
+    _pathbuf.extension().unwrap().to_str().unwrap()
 }
